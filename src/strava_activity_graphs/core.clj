@@ -9,7 +9,9 @@
   (json/read-str
     ((http-client/get
        "https://www.strava.com/api/v3/activities"
-       {:query-params {:access_token token}})
+       {:query-params
+        {:access_token token
+         :per_page 200}})
       :body)))
 
 (defn to-millis [str-date]
