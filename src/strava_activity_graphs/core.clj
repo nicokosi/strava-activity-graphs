@@ -5,7 +5,7 @@
   (:require [clojure.data.json :as json]
             [clj-http.client :as http-client]))
 
-(defn strava-json-activities [token]
+(defn- strava-json-activities [token]
   (json/read-str
     ((http-client/get
        "https://www.strava.com/api/v3/activities"
@@ -14,9 +14,17 @@
          :per_page 200}})
       :body)))
 
-(defn to-millis [str-date]
+(defn- to-millis [str-date]
   (.getTime
     (clojure.instant/read-instant-date str-date)))
+
+(defn- ts-plot [x y & options]
+  (doto
+    (apply time-series-plot* x y :points true options #_(conj :points true options))
+    (set-point-size 4)
+    (set-stroke-color java.awt.Color/GRAY)
+    (set-alpha 0.8)
+    view))
 
 (defn -main
   [& args]
@@ -32,32 +40,33 @@
     (with-data
       (to-dataset activities)
       #_(view $data)
-      (view
-        (time-series-plot
-          (to-millis ($ :start_date_local))
-          ($ :average_speed)
-          :title "Average speed over time"
-          :x-label "time"
-          :y-label "average speed (m/s)"))
-      (view
-        (time-series-plot
-          (to-millis ($ :start_date_local))
-          ($ :kudos_count)
-          :title "Activity kudos over time"
-          :x-label "time"
-          :y-label "kudos"))
-      (view
-        (time-series-plot
-          (to-millis ($ :start_date_local))
-          ($ :pr_count)
-          :title "Personal records over time"
-          :x-label "time"
-          :y-label "personal records"))
-      (view
-        (time-series-plot
-          (to-millis ($ :start_date_local))
-          ($ :elapsed_time)
-          :title "Activity duration over time"
-          :x-label "time"
-          :y-label "activity's elapsed time (s)"))
-      )))
+      (ts-plot
+        (to-millis ($ :start_date_local))
+        ($ :average_speed)
+        :title "Average speed over time"
+        :x-label "time"
+        :y-label "average speed (m/s)")
+      (ts-plot
+        (to-millis ($ :start_date_local))
+        ($ :average_speed)
+        :title "Average speed over time"
+        :x-label "time"
+        :y-label "average speed (m/s)")
+      (ts-plot
+        (to-millis ($ :start_date_local))
+        ($ :kudos_count)
+        :title "Activity kudos over time"
+        :x-label "time"
+        :y-label "kudos")
+      (ts-plot
+        (to-millis ($ :start_date_local))
+        ($ :pr_count)
+        :title "Personal records over time"
+        :x-label "time"
+        :y-label "personal records")
+      (ts-plot
+        (to-millis ($ :start_date_local))
+        ($ :elapsed_time)
+        :title "Activity duration over time"
+        :x-label "time"
+        :y-label "activity's elapsed time (s)"))))
