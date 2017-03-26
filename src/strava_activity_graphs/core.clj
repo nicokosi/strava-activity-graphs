@@ -20,7 +20,11 @@
 
 (defn- ts-plot [x y & options]
   (doto
-    (apply time-series-plot* x y :points true options #_(conj :points true options))
+    (apply time-series-plot*
+           x y
+           :points true
+           :legend true
+           options)
     (set-point-size 4)
     (set-stroke-color java.awt.Color/GRAY)
     (set-alpha 0.8)
@@ -43,30 +47,36 @@
       (ts-plot
         (to-millis ($ :start_date_local))
         ($ :average_speed)
+        :group-by ($ :type)
         :title "Average speed over time"
         :x-label "time"
         :y-label "average speed (m/s)")
       (ts-plot
         (to-millis ($ :start_date_local))
         ($ :average_speed)
+        :group-by ($ :type)
         :title "Average speed over time"
         :x-label "time"
         :y-label "average speed (m/s)")
       (ts-plot
         (to-millis ($ :start_date_local))
         ($ :kudos_count)
+        :group-by ($ :type)
         :title "Activity kudos over time"
         :x-label "time"
         :y-label "kudos")
       (ts-plot
         (to-millis ($ :start_date_local))
         ($ :pr_count)
+        :group-by ($ :type)
         :title "Personal records over time"
         :x-label "time"
         :y-label "personal records")
       (ts-plot
         (to-millis ($ :start_date_local))
         ($ :elapsed_time)
+        :group-by ($ :type)
         :title "Activity duration over time"
         :x-label "time"
-        :y-label "activity's elapsed time (s)"))))
+        :y-label "activity's elapsed time (s)"))
+    ))
