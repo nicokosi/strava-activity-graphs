@@ -11,7 +11,7 @@
        "https://www.strava.com/api/v3/activities"
        {:query-params
         {:access_token token
-         :per_page 200}})
+         :per_page     200}})
       :body)))
 
 (defn- to-millis [str-date]
@@ -30,6 +30,8 @@
     (set-alpha 0.8)
     view))
 
+(def m-per-h->km-per-h (partial * 3.6))
+
 (defn -main
   [& args]
 
@@ -38,42 +40,37 @@
     (println "Strava API token provided"))
   (let
     [token (first args)
-     activities (strava-json-activities token)
+     activities (->> (strava-json-activities token)
+                     (map #(update-in % ["average_speed"] m-per-h->km-per-h))
+                     (map #(update-in % ["start_date_local"] to-millis)))
      to-millis (fn [dates] (map #(to-millis %) dates))]
 
     (with-data
       (to-dataset activities)
       #_(view $data)
       (ts-plot
-        (to-millis ($ :start_date_local))
+        ($ :start_date_local)
         ($ :average_speed)
         :group-by ($ :type)
         :title "Average speed over time"
         :x-label "time"
-        :y-label "average speed (m/s)")
+        :y-label "average speed (km/h)")
       (ts-plot
-        (to-millis ($ :start_date_local))
-        ($ :average_speed)
-        :group-by ($ :type)
-        :title "Average speed over time"
-        :x-label "time"
-        :y-label "average speed (m/s)")
-      (ts-plot
-        (to-millis ($ :start_date_local))
+        ($ :start_date_local)
         ($ :kudos_count)
         :group-by ($ :type)
         :title "Activity kudos over time"
         :x-label "time"
         :y-label "kudos")
       (ts-plot
-        (to-millis ($ :start_date_local))
+        ($ :start_date_local)
         ($ :pr_count)
         :group-by ($ :type)
         :title "Personal records over time"
         :x-label "time"
         :y-label "personal records")
       (ts-plot
-        (to-millis ($ :start_date_local))
+        ($ :start_date_local)
         ($ :elapsed_time)
         :group-by ($ :type)
         :title "Activity duration over time"
