@@ -14,10 +14,6 @@
          :per_page     200}})
       :body)))
 
-(defn- to-millis [str-date]
-  (.getTime
-    (clojure.instant/read-instant-date str-date)))
-
 (defn- ts-plot [x y & options]
   (doto
     (apply time-series-plot*
@@ -30,7 +26,11 @@
     (set-alpha 0.8)
     view))
 
-(def m-per-h->km-per-h (partial * 3.6))
+(def meters-per-hour->kilometers-per-hour (partial * 3.6))
+(defn- seconds->minutes [s] (/ s 60))
+(defn- string-date->millis [str-date]
+  (.getTime
+    (clojure.instant/read-instant-date str-date)))
 
 (defn -main
   [& args]
@@ -41,9 +41,10 @@
   (let
     [token (first args)
      activities (->> (strava-json-activities token)
-                     (map #(update-in % ["average_speed"] m-per-h->km-per-h))
-                     (map #(update-in % ["start_date_local"] to-millis)))
-     to-millis (fn [dates] (map #(to-millis %) dates))]
+                     (map #(update-in % ["average_speed"] meters-per-hour->kilometers-per-hour))
+                     (map #(update-in % ["start_date_local"] string-date->millis))
+                     (map #(update-in % ["elapsed_time"] seconds->minutes))
+                     (map #(update-in % ["moving_time"] seconds->minutes)))]
 
     (with-data
       (to-dataset activities)
@@ -75,5 +76,5 @@
         :group-by ($ :type)
         :title "Activity duration over time"
         :x-label "time"
-        :y-label "activity's elapsed time (s)"))
+        :y-label "activity's elapsed time (minutes)"))
     ))
