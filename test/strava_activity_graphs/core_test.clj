@@ -1,7 +1,19 @@
 (ns strava-activity-graphs.core-test
-  (:require [clojure.test :refer :all]
-            [strava-activity-graphs.core :refer :all]))
+  (:require
+    [strava-activity-graphs.core :refer :all]
+    [clojure.java.io :refer [resource]]
+    [clojure.test :refer [deftest is testing]]
+    [clojure.data.json :as json]))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(deftest ^:integration-test core-tests
+
+    (testing "Display charts should not fail"
+       (with-redefs
+          [strava-json-activities
+           (fn [_]
+             (json/read-str
+               (slurp (resource "strava_activity_graphs/strava-activities.json"))))]
+
+          (display-charts "fake-token")))
+
+)
