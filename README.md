@@ -17,6 +17,8 @@ In order to display charts in separate windows (one window per chart), run:
 # Replace $access_token with your Strava access token)
 lein run $access_token
 ```
+and charts like these will be displayed:
+![screen shot](screenshot.png)
 
 
 ## License
