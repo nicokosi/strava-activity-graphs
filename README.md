@@ -19,10 +19,3 @@ lein run $access_token
 ```
 and charts like these will be displayed:
 ![screen shot](screenshot.png)
-
-
-## License
-
-Copyright © 2017 Nicolas Kosinski
-
-Distributed under the [Creative Commons Attribution 4.0 license](https://creativecommons.org/licenses/by/4.0/).
