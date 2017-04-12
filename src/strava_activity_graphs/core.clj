@@ -1,7 +1,8 @@
 (ns strava-activity-graphs.core
   (:gen-class)
   (:use [incanter.charts]
-        [incanter.core])
+        [incanter.core]
+        [incanter.io])
   (:require [clojure.data.json :as json]
             [clj-http.client :as http-client]))
 
@@ -37,10 +38,12 @@
     view))
 
 (defn display-charts [token]
-  (let [activities (get-activities token)]
-    (with-data
-      (to-dataset activities)
+  (let [activities (get-activities token)
+        activities (to-dataset activities)]
+    (with-data activities
       #_(view $data)
+      (save activities "/tmp/strava-activities.csv"
+            :delim \;)
       (ts-plot
         ($ :start_date_local)
         ($ :average_speed)
