@@ -11,7 +11,7 @@
                      "https://www.strava.com/api/v3/activities"
                      {:query-params {:access_token token :per_page 200}}))))
 
-(def meters-per-hour->kilometers-per-hour (partial * 3.6))
+(def meters-per-second->kilometers-per-hour (partial * 3.6))
 (defn- seconds->minutes [s] (/ s 60))
 (defn- string-date->millis [str-date]
   (.getTime
@@ -19,7 +19,7 @@
 
 (defn- get-activities [token]
   (->> (strava-json-activities token)
-       (map #(update-in % ["average_speed"] meters-per-hour->kilometers-per-hour))
+       (map #(update-in % ["average_speed"] meters-per-second->kilometers-per-hour))
        (map #(update-in % ["start_date_local"] string-date->millis))
        (map #(update-in % ["elapsed_time"] seconds->minutes))
        (map #(update-in % ["moving_time"] seconds->minutes))))
