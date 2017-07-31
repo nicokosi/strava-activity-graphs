@@ -12,4 +12,5 @@
                  ]
   :main ^:skip-aot strava-activity-graphs.core
   :target-path "target/%s"
+  :plugins [[lein-gorilla "0.4.0"]]
   :profiles {:uberjar {:aot :all}})
