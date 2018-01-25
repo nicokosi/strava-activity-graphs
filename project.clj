@@ -4,7 +4,7 @@
   :license {:name "Creative Commons Attribution 4.0"
             :url  "https://creativecommons.org/licenses/by/4.0/"}
   :dependencies [
-                 [org.clojure/clojure "1.8.0"],
+                 [org.clojure/clojure "1.9.0"],
                  [incanter "1.5.7"]
                  [org.clojure/data.json "0.2.6"]
                  [clj-http "2.3.0"]
