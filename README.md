@@ -9,6 +9,9 @@ Generate statistical charts for [Strava activities](https://www.strava.com/dashb
 - [Install leiningen](http://leiningen.org/#install).
 - Strava access token is required. You can get it [creating a Strava application](http://labs.strava.com/developers).
 
+## Command line installation
+
+Run `./generate-executable.sh`.
 
 ## Usage
 
