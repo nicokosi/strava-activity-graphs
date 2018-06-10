@@ -3,13 +3,13 @@
   :url "https://github.com/nicokosi/strava-activity-graphs"
   :license {:name "Creative Commons Attribution 4.0"
             :url  "https://creativecommons.org/licenses/by/4.0/"}
-  :dependencies [
-                 [org.clojure/clojure "1.9.0"],
-                 [incanter "1.5.7"]
+  :dependencies [[org.clojure/clojure "1.10.1"]
+                 [incanter/incanter-core "1.5.7"]
+                 [incanter/incanter-charts "1.5.7"]
+                 [incanter/incanter-io "1.5.7"]
                  [org.clojure/data.json "0.2.6"]
-                 [clj-http "3.7.0"]
-                 [slingshot "0.12.2"]
-                 ]
+                 [clj-http "3.10.0"]
+                 [slingshot "0.12.2"]]
   :main ^:skip-aot strava-activity-graphs.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}})
