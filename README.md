@@ -27,24 +27,10 @@ lein run $access_token
 and charts like these will be displayed:
 ![screen shot](screenshot.png)
 
-## Developer tasks
+## Development
 
-### Run tests
-
-```shell
-lein test
-```
-
-### Format the code
-
-Check:
-
-```shell
-lein cljfmt check
-```
-
-Format:
-
-```shell
-lein cljfmt fix
-```
+* Check the code format: `lein cljfmt check`
+* Fix the code format: `lein cljfmt fix`
+* Run tests: `lein test`
+* Display code coverage: `lein cloverage`
+* Run code interactively: `lein repl`
