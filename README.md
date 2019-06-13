@@ -1,4 +1,5 @@
-# strava-activity-graphs[![Build Status](https://travis-ci.org/nicokosi/strava-activity-graphs.svg?branch=master)](https://travis-ci.org/nicokosi/strava-activity-graphs)
+strava-activity-graphs [![Build Status](https://travis-ci.org/nicokosi/strava-activity-graphs.svg?branch=master)](https://travis-ci.org/nicokosi/strava-activity-graphs) [![Coverage Status](https://coveralls.io/repos/github/nicokosi/strava-activity-graphs/badge.svg?branch=master)](https://coveralls.io/github/nicokosi/strava-activity-graphs?branch=master)
+============================
 
 Generate statistical charts for [Strava activities](https://www.strava.com/dashboard?feed_type=my_activity).
 
