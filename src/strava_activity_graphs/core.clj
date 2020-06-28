@@ -10,7 +10,9 @@
   (json/read-str (:body
                    (http-client/get
                      "https://www.strava.com/api/v3/activities"
-                     {:query-params {:access_token token :per_page 200}}))))
+                     {
+                      :headers {:Authorization (str "Bearer " token)}
+                      :query-params {:per_page 200}}))))
 
 (def meters-per-second->kilometers-per-hour (partial * 3.6))
 (defn- seconds->minutes [s] (/ s 60))
