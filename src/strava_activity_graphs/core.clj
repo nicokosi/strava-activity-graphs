@@ -40,40 +40,48 @@
     view))
 
 (defn display-charts [token]
-  (let [activities (get-activities token)
-        activities (to-dataset activities)]
+  (let [activities
+        (dataset
+            ["start_date_local" "average_speed" "kudos_count" "type" "pr_count" "elapsed_time"]
+            (get-activities token))]
+    (save activities "/tmp/strava-activities.csv"
+          :delim \;)
     (with-data activities
       #_(view $data)
-      (save activities "/tmp/strava-activities.csv"
-            :delim \;)
+      (let [start_date_local (sel activities :cols 0)
+            average_speed (sel activities :cols 1)
+            kudos_count (sel activities :cols 2)
+            type (sel activities :cols 3)
+            pr_count (sel activities :cols 4)
+            elapsed_time (sel activities :cols 5)]
       (ts-plot
-        ($ :start_date_local)
-        ($ :average_speed)
-        :group-by ($ :type)
+        start_date_local
+        average_speed
+        :group-by type
         :title "Average speed over time"
         :x-label "time"
         :y-label "average speed (km/h)")
       (ts-plot
-        ($ :start_date_local)
-        ($ :kudos_count)
-        :group-by ($ :type)
+        start_date_local
+        kudos_count
+        :group-by type
         :title "Activity kudos over time"
         :x-label "time"
         :y-label "kudos")
       (ts-plot
-        ($ :start_date_local)
-        ($ :pr_count)
-        :group-by ($ :type)
+        start_date_local
+        pr_count
+        :group-by type
         :title "Personal records over time"
         :x-label "time"
         :y-label "personal records")
       (ts-plot
-        ($ :start_date_local)
-        ($ :elapsed_time)
-        :group-by ($ :type)
+        start_date_local
+        elapsed_time
+        :group-by type
         :title "Activity duration over time"
         :x-label "time"
-        :y-label "activity's elapsed time (minutes)"))))
+        :y-label "activity's elapsed time (minutes)")))))
 
 (defn -main
   [& args]
