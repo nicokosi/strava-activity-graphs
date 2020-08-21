@@ -8,7 +8,7 @@
                  [incanter/incanter-charts "1.5.7"]
                  [incanter/incanter-io "1.5.7"]
                  [org.clojure/data.json "0.2.6"]
-                 [clj-http "3.10.0"]
+                 [clj-http "3.10.2"]
                  [slingshot "0.12.2"]]
   :main ^:skip-aot strava-activity-graphs.core
   :target-path "target/%s"
