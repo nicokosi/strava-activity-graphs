@@ -5,7 +5,7 @@
             :url  "https://creativecommons.org/licenses/by/4.0/"}
   :dependencies [[org.clojure/clojure "1.10.1"]
                  [incanter/incanter-core "1.5.7"]
-                 [incanter/incanter-charts "1.5.7"]
+                 [incanter/incanter-charts "1.9.3"]
                  [incanter/incanter-io "1.5.7"]
                  [org.clojure/data.json "0.2.6"]
                  [clj-http "3.10.0"]
