@@ -8,17 +8,16 @@
 
 (defn strava-json-activities [token]
   (json/read-str (:body
-                   (http-client/get
-                     "https://www.strava.com/api/v3/activities"
-                     {
-                      :headers {:Authorization (str "Bearer " token)}
-                      :query-params {:per_page 200}}))))
+                  (http-client/get
+                   "https://www.strava.com/api/v3/activities"
+                   {:headers {:Authorization (str "Bearer " token)}
+                    :query-params {:per_page 200}}))))
 
 (def meters-per-second->kilometers-per-hour (partial * 3.6))
 (defn- seconds->minutes [s] (/ s 60))
 (defn- string-date->millis [str-date]
   (.getTime
-    (clojure.instant/read-instant-date str-date)))
+   (clojure.instant/read-instant-date str-date)))
 
 (defn- get-activities [token]
   (->> (strava-json-activities token)
@@ -29,11 +28,11 @@
 
 (defn- ts-plot [x y & options]
   (doto
-    (apply time-series-plot*
-           x y
-           :points true
-           :legend true
-           options)
+   (apply time-series-plot*
+          x y
+          :points true
+          :legend true
+          options)
     (set-point-size 4)
     (set-stroke-color java.awt.Color/GRAY)
     (set-alpha 0.8)
@@ -42,51 +41,51 @@
 (defn display-charts [token]
   (let [activities
         (dataset
-            ["start_date" "average_speed" "kudos_count" "type" "pr_count" "elapsed_time"]
-            (get-activities token))]
+         ["start_date" "average_speed" "kudos_count" "type" "pr_count" "elapsed_time"]
+         (get-activities token))]
     (save activities "/tmp/strava-activities.csv"
           :delim \;)
     (let [start_date (sel activities :cols 0)
-            average_speed (sel activities :cols 1)
-            kudos_count (sel activities :cols 2)
-            type (sel activities :cols 3)
-            pr_count (sel activities :cols 4)
-            elapsed_time (sel activities :cols 5)]
-        (ts-plot
-          start_date
-          average_speed
-          :group-by type
-          :title "Average speed over time"
-          :x-label "time"
-          :y-label "average speed (km/h)")
-        (ts-plot
-        start_date
-        average_speed
-        :group-by type
-        :title "Average speed over time"
-        :x-label "time"
-        :y-label "average speed (km/h)")
+          average_speed (sel activities :cols 1)
+          kudos_count (sel activities :cols 2)
+          type (sel activities :cols 3)
+          pr_count (sel activities :cols 4)
+          elapsed_time (sel activities :cols 5)]
       (ts-plot
-        start_date
-        kudos_count
-        :group-by type
-        :title "Activity kudos over time"
-        :x-label "time"
-        :y-label "kudos")
+       start_date
+       average_speed
+       :group-by type
+       :title "Average speed over time"
+       :x-label "time"
+       :y-label "average speed (km/h)")
       (ts-plot
-        start_date
-        pr_count
-        :group-by type
-        :title "Personal records over time"
-        :x-label "time"
-        :y-label "personal records")
+       start_date
+       average_speed
+       :group-by type
+       :title "Average speed over time"
+       :x-label "time"
+       :y-label "average speed (km/h)")
       (ts-plot
-        start_date
-        elapsed_time
-        :group-by type
-        :title "Activity duration over time"
-        :x-label "time"
-        :y-label "activity's elapsed time (minutes)"))))
+       start_date
+       kudos_count
+       :group-by type
+       :title "Activity kudos over time"
+       :x-label "time"
+       :y-label "kudos")
+      (ts-plot
+       start_date
+       pr_count
+       :group-by type
+       :title "Personal records over time"
+       :x-label "time"
+       :y-label "personal records")
+      (ts-plot
+       start_date
+       elapsed_time
+       :group-by type
+       :title "Activity duration over time"
+       :x-label "time"
+       :y-label "activity's elapsed time (minutes)"))))
 
 (defn -main
   [& args]
