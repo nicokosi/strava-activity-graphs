@@ -10,7 +10,7 @@
                  [org.clojure/data.json "1.0.0"]
                  [clj-http "3.10.2"]
                  [slingshot "0.12.2"]]
-  :plugins [[lein-cljfmt "0.6.8"]]
+  :plugins [[lein-cljfmt "0.7.0"]]
   :main ^:skip-aot strava-activity-graphs.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}})
