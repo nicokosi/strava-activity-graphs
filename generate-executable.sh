@@ -9,7 +9,7 @@ lein uberjar
 echo "Install GraalVM via SDKMAN!:"
 curl --silent "https://get.sdkman.io" | bash || echo 'SDKMAN! already installed'
 source "$HOME/.sdkman/bin/sdkman-init.sh"
-GRAALVM_VERSION=19.0.2-grl
+GRAALVM_VERSION=20.3.0.r11-grl
 sdkman_auto_answer=true sdk install java $GRAALVM_VERSION > /dev/null
 sdk use java $GRAALVM_VERSION
 
@@ -18,11 +18,12 @@ gu install native-image && \
 native-image \
     --allow-incomplete-classpath \
     --auto-fallback \
-    --initialize-at-build-time \
+    --initialize-at-run-time=sun.awt.dnd.SunDropTargetContextPeer$EventDispatcher \
     --no-server \
     --report-unsupported-elements-at-runtime \
     -Dclojure.compiler.direct-linking=true \
     -H:+ReportExceptionStackTraces \
+    -H:ConfigurationFileDirectories=conf \
     -jar ./target/uberjar/strava-activity-graphs-0.1.0-SNAPSHOT-standalone.jar \
     strava-activity-graphs.core
 
