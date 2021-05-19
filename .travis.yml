@@ -9,4 +9,4 @@ lein: 2.9.1
 jdk:
   - openjdk11
 
-script: lein cloverage
+script: lein cloverage --coveralls
