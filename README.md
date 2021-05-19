@@ -1,4 +1,5 @@
-# strava-activity-graphs[![Build Status](https://travis-ci.org/nicokosi/strava-activity-graphs.svg?branch=master)](https://travis-ci.org/nicokosi/strava-activity-graphs)
+strava-activity-graphs [![Build Status](https://travis-ci.org/nicokosi/strava-activity-graphs.svg?branch=master)](https://travis-ci.org/nicokosi/strava-activity-graphs) [![Coverage Status](https://coveralls.io/repos/github/nicokosi/strava-activity-graphs/badge.svg?branch=master)](https://coveralls.io/github/nicokosi/strava-activity-graphs?branch=master)
+============================
 
 Generate statistical charts for [Strava activities](https://www.strava.com/dashboard?feed_type=my_activity).
 
@@ -26,24 +27,10 @@ lein run $access_token
 and charts like these will be displayed:
 ![screen shot](screenshot.png)
 
-## Developer tasks
+## Development
 
-### Run tests
-
-```shell
-lein test
-```
-
-### Format the code
-
-Check:
-
-```shell
-lein cljfmt check
-```
-
-Format:
-
-```shell
-lein cljfmt fix
-```
+* Check the code format: `lein cljfmt check`
+* Fix the code format: `lein cljfmt fix`
+* Run tests: `lein test`
+* Display code coverage: `lein cloverage`
+* Run code interactively: `lein repl`
