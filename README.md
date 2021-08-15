@@ -1,4 +1,4 @@
-# strava-activity-graphs[![Build Status](https://travis-ci.org/nicokosi/strava-activity-graphs.svg?branch=master)](https://travis-ci.org/nicokosi/strava-activity-graphs)
+# strava-activity-graphs[![Build Status](https://github.com/nicokosi/strava-activity-graphs/actions/workflows/ci.yml/badge.svg)](https://github.com/nicokosi/strava-activity-graphs/actions/workflows/ci.yml)
 
 Generate statistical charts for [Strava activities](https://www.strava.com/dashboard?feed_type=my_activity).
 
