@@ -3,7 +3,7 @@
   :url "https://github.com/nicokosi/strava-activity-graphs"
   :license {:name "Creative Commons Attribution 4.0"
             :url  "https://creativecommons.org/licenses/by/4.0/"}
-  :dependencies [[org.clojure/clojure "1.10.3"]
+  :dependencies [[org.clojure/clojure "1.11.1"]
                  [incanter/incanter-core "1.9.3"]
                  [incanter/incanter-charts "1.9.3"]
                  [incanter/incanter-io "1.9.3"]
