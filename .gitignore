@@ -5,7 +5,7 @@
 /.nrepl-port
 *.iml
 /lib
+.clj-kondo
 .idea
-
 strava-activity-graphs.core
 strava-activity-graphs.core.build_artifacts.txt
